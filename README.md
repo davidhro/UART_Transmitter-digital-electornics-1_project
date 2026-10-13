@@ -1,4 +1,4 @@
-# UART vysílač
+# UART Transmitter
 
 ### Team members
 
@@ -6,49 +6,44 @@
 
 ### Table of contents
 
-* [Project objectives](#objectives)
-* [Hardware description](#hardware)
-* [VHDL modules description and simulations](#modules)
-* [TOP module description and simulations](#top)
-* [Video](#video)
-* [References](#references)
+* Project objectives
+* Hardware description
+* VHDL modules description and simulations
+* TOP module description and simulations
+* Video
+* References
 
 <a name="objectives"></a>
 
 ## Project objectives
 
-Cílem projektu je vytvoření vysílače, který odesílá data ve formátu 7O1 (7 datových bitů, lichá parita,1 stop bit) s rychlostí 4800 Baud pomocí rozrhraní UART. Nastavení datového slova bude probíhat pomocí přepínačů. 
+The goal of this project is to build a transmitter that sends data in the 7O1 format (7 data bits, odd parity, 1 stop bit) at a rate of 4800 Baud using the UART interface. The data word is configured using the switches on the board.
 
 <a name="hardware"></a>
 
 ## Hardware description
 ![your figure](https://github.com/davidhro/DE1_projekt_2/blob/main/pictures/nexys-a7-callout.png)
 
-
-Pro projekt byla použita deska Nexys A7-50T od výrobce Digilent.
-Nastavení datového slova probíhá pomocí přepínačů (18). Výstup dat probíhá pomocí jednoho z Pmod portů (14). Pro reset je použito jedno z tlačítek (13). Jako hodinový signál slouží interní krystalový oscilátor o kmitočtu 100 MHz.
-
-
+The project uses the Nexys A7-50T board from Digilent.
+The data word is set using the switches (18). Data output goes through one of the Pmod ports (14). One of the push buttons (13) is used for reset. The clock signal is provided by the internal crystal oscillator with a frequency of 100 MHz.
 
 <a name="modules"></a>
 
 ## VHDL modules description and simulations
 
 ### parity_generator
-Modul provádí operaci XOR se všemi vstupními bity, jeho výstupem je paritní bit. Pracuje v režimu liché parity, tedy generuje hodnotu 1 pokud je v datovém slově obsažen sudý počet bitů s hodnotou 1 a hodnotu 0 pokud je v datovém slově obsažen lichý počet bitů s hodnotou 1. 
+The module performs an XOR operation on all input bits, and its output is the parity bit. It operates in odd parity mode, i.e. it generates the value 1 if the data word contains an even number of bits set to 1, and the value 0 if the data word contains an odd number of bits set to 1.
 
 ### clock_enable
-Modul upravuje rychlost hodinového signálu
+The module adjusts the clock signal rate.
 
 ### cnt_up
-Modul zajišťuje požadovanou rychlost přenosu dat (spolu s modulem clock_enable) a pomáhá s postupným odesíláním dat na výstup.
+The module ensures the required data transfer speed (together with the clock_enable module) and helps to send the data to the output bit by bit.
 
 ### UART_TX
-Modul se stará o uspořádání bitů do vektoru, jednotlivé bity odesílá sériově. Seřazuje bity (start, 7 datových, jeden paritní a jeden stop bit) do zadaného formátu a postupně je odesílá na výstup. Slovo začíná start bitem. Seřazení datových bitů probíhá LSB->MSB, po nich následují paritní bit a stop bit. 
+The module arranges the bits into a vector and sends the individual bits serially. It assembles the bits (start bit, 7 data bits, one parity bit and one stop bit) into the specified format and sends them to the output one by one. The word starts with the start bit. The data bits are ordered LSB->MSB, followed by the parity bit and the stop bit.
 
-
-
-### Simulace všech modulů (vybrané signály)
+### Simulation of all modules (selected signals)
 ![your figure](https://github.com/davidhro/DE1_projekt_2/blob/main/pictures/pictures/UART_TX_waveforms.png)
 <a name="top"></a>
 
@@ -56,20 +51,7 @@ Modul se stará o uspořádání bitů do vektoru, jednotlivé bity odesílá s�
 
 ![your figure](https://github.com/davidhro/DE1_projekt_2/blob/main/pictures/pictures/top.png)
 
-
-Schéma TOP modulu vykresleno pomocí programu Vivado.
-
-<a name="video"></a>
-
-## Video
-https://drive.google.com/file/d/1chixEXzvv9apnasI0aJwnty4dbokSeHA/view?usp=sharing
-
-Oprava chyb z videa:
-
-0:25 - jde o switche označené 0 - 6
-
-2:30 - 4,8 bit/ms
-
+The TOP module schematic, drawn using Vivado.
 
 <a name="references"></a>
 
@@ -79,4 +61,3 @@ Oprava chyb z videa:
 2. https://www.nandland.com/articles/what-is-a-uart-rs232-serial.html
 3. https://forum.digikey.com/t/parity-generator-vhdl/12591
 4. https://digilent.com/reference/programmable-logic/nexys-a7/reference-manual?redirect=1
-
