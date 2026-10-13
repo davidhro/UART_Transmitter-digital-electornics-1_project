@@ -22,9 +22,8 @@ The goal of this project is to build a transmitter that sends data in the 7O1 fo
 <a name="hardware"></a>
 
 ## Hardware description
-<p align="center">
 ![your figure](https://github.com/davidhro/DE1_projekt_2/blob/main/pictures/nexys-a7-callout.png)
-</p>
+
 
 The project uses the Nexys A7-50T board from Digilent.
 The data word is set using the switches (18). Data output goes through one of the Pmod ports (14). One of the push buttons (13) is used for reset. The clock signal is provided by the internal crystal oscillator with a frequency of 100 MHz.
